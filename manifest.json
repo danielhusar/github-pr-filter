@@ -1,0 +1,22 @@
+{
+  "name": "Github Npm",
+  "description": "Link npm packages in github and npm readmes to the npm registry",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "js": ["inject.js"],
+      "matches": [
+        "https://github.com/*/*",
+        "https://www.npmjs.com/package/*"
+      ]
+    }
+  ],
+  "homepage_url": "https://github.com/danielhusar/github-npm",
+  "icons": {
+    "16": "icon_16.png",
+    "48": "icon_48.png",
+    "128": "icon_128.png"
+  },
+  "web_accessible_resources": [ "init.js" ]
+}
