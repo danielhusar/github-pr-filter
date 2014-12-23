@@ -8,7 +8,8 @@
       "js": ["inject.js"],
       "matches": [
         "https://github.com/*/*",
-        "https://www.npmjs.com/package/*"
+        "https://github.com/*/*/*/*",
+        "https://github.com/*/*/*/*/*"
       ]
     }
   ],
