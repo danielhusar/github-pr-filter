@@ -1,18 +1,15 @@
-(function(window, document, undefined){
+(function(window, document, $, undefined){
   'use strict';
 
-  var $ = window.jQuery;
-  
   var config = {
     images: ['jpg', 'jpeg', 'bmp', 'png', 'gif'],
     videos: ['avi', 'mp4', 'webm', 'flv', 'mkv'],
+    html: ['html', 'erb', 'swig', 'jade', 'hbs'],
     css: ['css', 'less', 'sass', 'scss', 'styl'],
-    javascript: ['js', 'coffee'],
-    html: ['html', 'erb', 'swig', 'jade', 'hbs']
+    javascript: ['js', 'coffee']
   };
 
   function init () {
-
     if ($('#filter-nav').length > 0) {
       return;
     }
@@ -43,4 +40,4 @@
     new window.MutationObserver(init).observe(document.querySelector('#js-repo-pjax-container'), {childList: true});
   }
 
-})(this, this.document);
+})(this, this.document, this.jQuery);
