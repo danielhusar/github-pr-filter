@@ -2,6 +2,14 @@
   'use strict';
 
   var $ = window.jQuery;
+  
+  var config = {
+    images: ['jpg', 'jpeg', 'bmp', 'png', 'gif'],
+    videos: ['avi', 'mp4', 'webm', 'flv', 'mkv'],
+    css: ['css', 'less', 'sass', 'scss', 'styl'],
+    javascript: ['js', 'coffee'],
+    html: ['html', 'erb', 'swig', 'jade', 'hbs']
+  };
 
   function init () {
 
