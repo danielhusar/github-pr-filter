@@ -8,6 +8,11 @@
     css: ['css', 'less', 'sass', 'scss', 'styl'],
     javascript: ['js', 'coffee']
   };
+  var dotfiles = false;
+
+  function filename (str) {
+    return str.replace(/^.*(\\|\/|\:)/, '');
+  }
 
   function init () {
     if ($('#filter-nav').length > 0) {
@@ -19,7 +24,9 @@
 
     var items = $('.info .js-selectable-text')
                   .map(function () {
-                    return /[^.]+$/.exec($(this).attr('title'));
+                    var name = filename($(this).attr('title'));
+                    dotfiles = name[0] === '.';
+                    return /[^.]+$/.exec(name);
                   })
                   .splice(0)
                   .filter(function (e, i, arr) {
@@ -29,9 +36,35 @@
     items.forEach(function (el) {
       nav += '<a href="#" class="subnav-item">' + el + '</a>';
     });
+    if (dotfiles) {
+      nav += '<a href="#" class="subnav-item" data-dotfiles="true">Dotfiles</a>';
+    }
     nav += '</div>';
 
     $('#toc').append(nav);
+
+    events();
+    filter();
+
+  }
+
+  function events () {
+    $('#toc').off('click.filter').on('click.filter', '.subnav-item', function (e) {
+      e.preventDefault();
+      var $this = $(this);
+
+      if ($this.data('all')) {
+        $this.siblings().removeClass('selected');
+        $('[data-all]').addClass('selected');
+        return;
+      }
+
+      $('[data-all]').removeClass('selected');
+      $this.toggleClass('selected');
+    });
+  }
+
+  function filter () {
 
   }
 
