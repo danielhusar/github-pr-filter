@@ -10,10 +10,16 @@
   };
   var dotfiles = false;
 
+  /*
+  Get the filename from url
+   */
   function filename (str) {
     return str.replace(/^.*(\\|\/|\:)/, '');
   }
 
+  /*
+  Build the html fot the navigation
+   */
   function init () {
     if ($('#filter-nav').length > 0) {
       return;
@@ -44,10 +50,14 @@
     $('#toc').append(nav);
 
     events();
-    filter();
+
 
   }
 
+  /**
+   * Bind events on navigation
+   * @return {void}
+   */
   function events () {
     $('#toc').off('click.filter').on('click.filter', '.subnav-item', function (e) {
       e.preventDefault();
@@ -56,15 +66,21 @@
       if ($this.data('all')) {
         $this.siblings().removeClass('selected');
         $('[data-all]').addClass('selected');
-        return;
+      } else {
+        $('[data-all]').removeClass('selected');
+        $this.toggleClass('selected');
       }
 
-      $('[data-all]').removeClass('selected');
-      $this.toggleClass('selected');
+      filter({
+        dotfiles: $this.data('dotfiles')
+      });
     });
   }
 
-  function filter () {
+  /*
+    Filter the items
+   */
+  function filter (settings) {
 
   }
 
