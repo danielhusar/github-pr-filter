@@ -81,7 +81,11 @@
     Filter the items
    */
   function filter (settings) {
+    $('.file').each(function () {
+      var $this = $(this);
 
+      $this.addClass('hidden');
+    });
   }
 
   init();
