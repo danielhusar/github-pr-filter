@@ -85,10 +85,17 @@
     Filter the items
    */
   function filter (settings) {
-    $('.file').each(function () {
-      var $this = $(this);
+    $('[data-path]').parent().addClass('hidden');
+    $('#filter-nav .selected').each(function () {
+      var item = $(this).text();
+      $('[data-path$=".' + item + '"]').parent().removeClass('hidden');
 
-      $this.addClass('hidden');
+      if(config[item]) {
+        $.each(config[item], function (key, el) {
+          $('[data-path$=".' + el + '"]').parent().removeClass('hidden');
+        });
+      }
+
     });
   }
 
