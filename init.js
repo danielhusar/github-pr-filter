@@ -26,7 +26,7 @@
     }
 
     var nav = '<div class="subnav-links" id="filter-nav" style="overflow: hidden; width: 100%; margin-top: 20px; text-transform: uppercase; letter-spacing: 1px;">';
-    nav += '<a href="#" class="subnav-item selected" data-all="true">All</a>';
+    nav += '<a href="#" class="subnav-item selected" data-all="true">all</a>';
 
     var items = $('.info .js-selectable-text')
                   .map(function () {
@@ -50,9 +50,9 @@
 
   function getExt (ext) {
     var curretnExt = ext;
-    $.each(config, function (el, key) {
-      if (key.indexOf(ext) !== -1) {
-        curretnExt = el;
+    $.each(config, function (key, el) {
+      if (el.indexOf(ext) !== -1) {
+        curretnExt = key;
       }
     });
     return curretnExt;
@@ -88,8 +88,14 @@
     $('[data-path]').parent().addClass('hidden');
     $('#filter-nav .selected').each(function () {
       var item = $(this).text();
-      $('[data-path$=".' + item + '"]').parent().removeClass('hidden');
 
+      console.log(item);
+      if (item === 'all') {
+        $('[data-path]').parent().removeClass('hidden');
+        return false;
+      }
+
+      $('[data-path$=".' + item + '"]').parent().removeClass('hidden');
       if(config[item]) {
         $.each(config[item], function (key, el) {
           $('[data-path$=".' + el + '"]').parent().removeClass('hidden');
