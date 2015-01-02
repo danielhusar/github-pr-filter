@@ -31,8 +31,8 @@
     var items = $('.info .js-selectable-text')
                   .map(function () {
                     var name = filename($(this).attr('title'));
-                    dotfiles = name[0] === '.';
-                    return /[^.]+$/.exec(name);
+                    var ext = name.split('.').pop();
+                    return (name[0] === '.') ? 'dotfiles' : getExt(ext);
                   })
                   .splice(0)
                   .filter(function (e, i, arr) {
@@ -42,16 +42,20 @@
     items.forEach(function (el) {
       nav += '<a href="#" class="subnav-item">' + el + '</a>';
     });
-    if (dotfiles) {
-      nav += '<a href="#" class="subnav-item" data-dotfiles="true">Dotfiles</a>';
-    }
     nav += '</div>';
-
     $('#toc').append(nav);
 
     events();
+  }
 
-
+  function getExt (ext) {
+    var curretnExt = ext;
+    $.each(config, function (el, key) {
+      if (key.indexOf(ext) !== -1) {
+        curretnExt = el;
+      }
+    });
+    return curretnExt;
   }
 
   /**
