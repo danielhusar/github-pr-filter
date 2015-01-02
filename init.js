@@ -9,6 +9,7 @@
     javascript: ['js', 'coffee']
   };
   var dotfiles = false;
+  var dotfilesArr = [];
 
   /*
   Get the filename from url
@@ -26,13 +27,18 @@
     }
 
     var nav = '<div class="subnav-links" id="filter-nav" style="overflow: hidden; width: 100%; margin-top: 20px; text-transform: uppercase; letter-spacing: 1px;">';
-    nav += '<a href="#" class="subnav-item selected" data-all="true">All</a>';
+    nav += '<a href="#" class="subnav-item selected" data-all="true">all</a>';
 
     var items = $('.info .js-selectable-text')
                   .map(function () {
                     var name = filename($(this).attr('title'));
-                    dotfiles = name[0] === '.';
-                    return /[^.]+$/.exec(name);
+                    var ext = name.split('.').pop();
+                    if (name[0] === '.') {
+                      dotfilesArr.push(ext);
+                      return 'dotfiles';
+                    } else {
+                      return getExt(ext);
+                    }
                   })
                   .splice(0)
                   .filter(function (e, i, arr) {
@@ -42,16 +48,20 @@
     items.forEach(function (el) {
       nav += '<a href="#" class="subnav-item">' + el + '</a>';
     });
-    if (dotfiles) {
-      nav += '<a href="#" class="subnav-item" data-dotfiles="true">Dotfiles</a>';
-    }
     nav += '</div>';
-
     $('#toc').append(nav);
 
     events();
+  }
 
-
+  function getExt (ext) {
+    var curretnExt = ext;
+    $.each(config, function (key, el) {
+      if (el.indexOf(ext) !== -1) {
+        curretnExt = key;
+      }
+    });
+    return curretnExt;
   }
 
   /**
@@ -71,20 +81,40 @@
         $this.toggleClass('selected');
       }
 
-      filter({
-        dotfiles: $this.data('dotfiles')
-      });
+      if ($('#filter-nav .selected').length === 0) {
+        $('[data-all]').trigger('click.filter');
+      }
+
+      filter();
     });
   }
 
   /*
     Filter the items
    */
-  function filter (settings) {
-    $('.file').each(function () {
-      var $this = $(this);
+  function filter () {
+    $('[data-path]').parent().addClass('hidden');
+    $('#filter-nav .selected').each(function () {
+      var item = $(this).text();
 
-      $this.addClass('hidden');
+      if (item === 'all') {
+        $('[data-path]').parent().removeClass('hidden');
+        return false;
+      }
+
+      if (item === 'dotfiles') {
+        $.each(dotfilesArr, function (key, el) {
+          $('[data-path$=".'+ el +'"]').parent().removeClass('hidden');
+        });
+      }
+
+      $('[data-path$=".' + item + '"]').parent().removeClass('hidden');
+      if(config[item]) {
+        $.each(config[item], function (key, el) {
+          $('[data-path$=".' + el + '"]').parent().removeClass('hidden');
+        });
+      }
+
     });
   }
 
