@@ -9,6 +9,7 @@
     javascript: ['js', 'coffee']
   };
   var dotfiles = false;
+  var dotfilesArr = [];
 
   /*
   Get the filename from url
@@ -32,7 +33,12 @@
                   .map(function () {
                     var name = filename($(this).attr('title'));
                     var ext = name.split('.').pop();
-                    return (name[0] === '.') ? 'dotfiles' : getExt(ext);
+                    if (name[0] === '.') {
+                      dotfilesArr.push(ext);
+                      return 'dotfiles';
+                    } else {
+                      return getExt(ext);
+                    }
                   })
                   .splice(0)
                   .filter(function (e, i, arr) {
@@ -89,10 +95,15 @@
     $('#filter-nav .selected').each(function () {
       var item = $(this).text();
 
-      console.log(item);
       if (item === 'all') {
         $('[data-path]').parent().removeClass('hidden');
         return false;
+      }
+
+      if (item === 'dotfiles') {
+        $.each(dotfilesArr, function (key, el) {
+          $('[data-path$=".'+ el +'"]').parent().removeClass('hidden');
+        });
       }
 
       $('[data-path$=".' + item + '"]').parent().removeClass('hidden');
