@@ -81,16 +81,18 @@
         $this.toggleClass('selected');
       }
 
-      filter({
-        dotfiles: $this.data('dotfiles')
-      });
+      if ($('#filter-nav .selected').length === 0) {
+        $('[data-all]').trigger('click.filter');
+      }
+
+      filter();
     });
   }
 
   /*
     Filter the items
    */
-  function filter (settings) {
+  function filter () {
     $('[data-path]').parent().addClass('hidden');
     $('#filter-nav .selected').each(function () {
       var item = $(this).text();
