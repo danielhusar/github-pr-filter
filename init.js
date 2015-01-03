@@ -54,6 +54,9 @@
     events();
   }
 
+  /*
+    Get file extension from group
+   */
   function getExt (ext) {
     var curretnExt = ext;
     $.each(config, function (key, el) {
