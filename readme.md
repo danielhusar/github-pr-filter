@@ -4,7 +4,7 @@ Add ability to filter files in pull requests
 
 ## Install
 
-Install it from [chrome store](), or download this repo and load as unpacked extension.
+Install it from [chrome store](https://chrome.google.com/webstore/detail/fjmalelcdgindphooaabcgmmnmoclpee/publish-accepted), or download this repo and load as unpacked extension.
 
 ## Example
 
