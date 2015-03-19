@@ -29,7 +29,7 @@
     var nav = '<div class="subnav-links" id="filter-nav" style="overflow: hidden; width: 100%; margin-top: 20px; text-transform: uppercase; letter-spacing: 1px;">';
     nav += '<a href="#" class="subnav-item selected" data-all="true">all</a>';
 
-    var items = $('.info .js-selectable-text')
+    var items = $('.file-info .js-selectable-text')
                   .map(function () {
                     var name = filename($(this).attr('title'));
                     var ext = name.split('.').pop();
