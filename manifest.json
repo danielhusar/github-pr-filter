@@ -1,7 +1,7 @@
 {
   "name": "Github Pr Filter",
   "description": "Filter files in pull requests",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "manifest_version": 2,
   "content_scripts": [
     {
