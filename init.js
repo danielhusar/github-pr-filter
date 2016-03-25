@@ -6,7 +6,7 @@
     videos: ['avi', 'mp4', 'webm', 'flv', 'mkv'],
     html: ['html', 'erb', 'swig', 'jade', 'hbs'],
     css: ['css', 'less', 'sass', 'scss', 'styl'],
-    javascript: ['js', 'coffee']
+    javascript: ['js', 'coffee', 'jsx']
   };
   var dotfiles = false;
   var dotfilesArr = [];
@@ -48,8 +48,8 @@
     items.forEach(function (el) {
       nav += '<a href="#" class="subnav-item">' + el + '</a>';
     });
-    nav += '</div>';
-    $('#toc').append(nav);
+    nav += '</div><br>';
+    $('.tabnav-pr').after(nav);
 
     events();
   }
@@ -72,7 +72,7 @@
    * @return {void}
    */
   function events () {
-    $('#toc').off('click.filter').on('click.filter', '.subnav-item', function (e) {
+    $('#filter-nav').off('click.filter').on('click.filter', '.subnav-item', function (e) {
       e.preventDefault();
       var $this = $(this);
 
@@ -111,7 +111,7 @@
         });
       }
 
-      $('[data-path$=".' + item + '"]').parent().removeClass('hidden');
+      $('[data-path$=".' + item + '"], [data-path="' + item + '"]').parent().removeClass('hidden');
       if(config[item]) {
         $.each(config[item], function (key, el) {
           $('[data-path$=".' + el + '"]').parent().removeClass('hidden');
