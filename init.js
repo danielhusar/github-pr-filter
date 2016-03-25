@@ -6,7 +6,7 @@
     videos: ['avi', 'mp4', 'webm', 'flv', 'mkv'],
     html: ['html', 'erb', 'swig', 'jade', 'hbs'],
     css: ['css', 'less', 'sass', 'scss', 'styl'],
-    javascript: ['js', 'coffee']
+    javascript: ['js', 'coffee', 'jsx']
   };
   var dotfiles = false;
   var dotfilesArr = [];
@@ -29,7 +29,7 @@
     var nav = '<div class="subnav-links" id="filter-nav" style="overflow: hidden; width: 100%; margin-top: 20px; text-transform: uppercase; letter-spacing: 1px;">';
     nav += '<a href="#" class="subnav-item selected" data-all="true">all</a>';
 
-    var items = $('.info .js-selectable-text')
+    var items = $('.file-info .user-select-contain')
                   .map(function () {
                     var name = filename($(this).attr('title'));
                     var ext = name.split('.').pop();
@@ -48,12 +48,15 @@
     items.forEach(function (el) {
       nav += '<a href="#" class="subnav-item">' + el + '</a>';
     });
-    nav += '</div>';
-    $('#toc').append(nav);
+    nav += '</div><br>';
+    $('.tabnav-pr').after(nav);
 
     events();
   }
 
+  /*
+    Get file extension from group
+   */
   function getExt (ext) {
     var curretnExt = ext;
     $.each(config, function (key, el) {
@@ -69,7 +72,7 @@
    * @return {void}
    */
   function events () {
-    $('#toc').off('click.filter').on('click.filter', '.subnav-item', function (e) {
+    $('#filter-nav').off('click.filter').on('click.filter', '.subnav-item', function (e) {
       e.preventDefault();
       var $this = $(this);
 
@@ -108,7 +111,7 @@
         });
       }
 
-      $('[data-path$=".' + item + '"]').parent().removeClass('hidden');
+      $('[data-path$=".' + item + '"], [data-path="' + item + '"]').parent().removeClass('hidden');
       if(config[item]) {
         $.each(config[item], function (key, el) {
           $('[data-path$=".' + el + '"]').parent().removeClass('hidden');

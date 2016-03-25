@@ -1,7 +1,7 @@
 {
-  "name": "Github Npm",
-  "description": "Link npm packages in github and npm readmes to the npm registry",
-  "version": "0.0.1",
+  "name": "Github Pr Filter",
+  "description": "Filter files in pull requests",
+  "version": "0.0.4",
   "manifest_version": 2,
   "content_scripts": [
     {
@@ -13,7 +13,7 @@
       ]
     }
   ],
-  "homepage_url": "https://github.com/danielhusar/github-npm",
+  "homepage_url": "https://github.com/danielhusar/github-pr-filter",
   "icons": {
     "16": "icon_16.png",
     "48": "icon_48.png",
